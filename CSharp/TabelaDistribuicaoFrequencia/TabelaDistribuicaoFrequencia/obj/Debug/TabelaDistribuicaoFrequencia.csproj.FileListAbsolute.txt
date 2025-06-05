@@ -1,0 +1,7 @@
+C:\estudos\csharp\TabelaDistribuicaoFrequencia\TabelaDistribuicaoFrequencia\bin\Debug\TabelaDistribuicaoFrequencia.exe.config
+C:\estudos\csharp\TabelaDistribuicaoFrequencia\TabelaDistribuicaoFrequencia\bin\Debug\TabelaDistribuicaoFrequencia.exe
+C:\estudos\csharp\TabelaDistribuicaoFrequencia\TabelaDistribuicaoFrequencia\bin\Debug\TabelaDistribuicaoFrequencia.pdb
+C:\estudos\csharp\TabelaDistribuicaoFrequencia\TabelaDistribuicaoFrequencia\obj\Debug\TabelaDistribuicaoFrequencia.csproj.AssemblyReference.cache
+C:\estudos\csharp\TabelaDistribuicaoFrequencia\TabelaDistribuicaoFrequencia\obj\Debug\TabelaDistribuicaoFrequencia.csproj.CoreCompileInputs.cache
+C:\estudos\csharp\TabelaDistribuicaoFrequencia\TabelaDistribuicaoFrequencia\obj\Debug\TabelaDistribuicaoFrequencia.exe
+C:\estudos\csharp\TabelaDistribuicaoFrequencia\TabelaDistribuicaoFrequencia\obj\Debug\TabelaDistribuicaoFrequencia.pdb
