@@ -17,8 +17,17 @@ namespace TabelaDistribuicaoFrequencia
             "Pós-graduação"
         };
         List<string> sorteioGrauInstrucao;
-        List<int> numeroFilhos = new List<int>();
-        List<double> salarioMinimos = new List<double>();
+        List<string> numeroFilhos = new List<string>()
+        {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4"
+        };
+        List<string> sorteioNumeroFilhos = new List<string>();
+        List<double> salarioMinimos = new List<double>(); // Números sorteados
+
         int qtdeDados = 19;
         Random rand = new Random();
 
@@ -44,12 +53,11 @@ namespace TabelaDistribuicaoFrequencia
             {
                 switch (rand.Next(0, 5))
                 {
-                    case 0: numeroFilhos.Add(0); break;
-                    case 1: numeroFilhos.Add(1); break;
-                    case 2: numeroFilhos.Add(2); break;
-                    case 3: numeroFilhos.Add(3); break;
-                    case 4: numeroFilhos.Add(4); break;
-                    default: numeroFilhos.Add(5); break;
+                    case 0: sorteioNumeroFilhos.Add("0"); break;
+                    case 1: sorteioNumeroFilhos.Add("1"); break;
+                    case 2: sorteioNumeroFilhos.Add("2"); break;
+                    case 3: sorteioNumeroFilhos.Add("3"); break;
+                    case 4: sorteioNumeroFilhos.Add("4"); break;
                 }
             }
         }
@@ -63,6 +71,8 @@ namespace TabelaDistribuicaoFrequencia
             }
         }
 
+        //public void GeraSorteio
+
         public List<string> GetGrauInstrucao()
         {
             return grauInstrucao;
@@ -73,9 +83,14 @@ namespace TabelaDistribuicaoFrequencia
             return sorteioGrauInstrucao;
         }
 
-        public List<int> GetNumeroFilhos()
+        public List<string> GetNumeroFilhos()
         {
             return numeroFilhos;
+        }
+
+        public List<string> getSorteioNumeroFilhos()
+        {
+            return sorteioNumeroFilhos;
         }
 
         public List<double> GetSalariosMinimos()

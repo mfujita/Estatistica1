@@ -10,12 +10,13 @@ namespace TabelaDistribuicaoFrequencia
     {
         List<string> grauInstrucao;
         List<string> sorteioGrauInstrucao;
-        List<int> nFilhos;
+        List<string> nFilhos;
+        List<string> sorteioNumeroFilhos;
         List<double> sMinimos;
 
         public CalculosEstatisticos()
         {
-            nFilhos = new List<int>();
+            nFilhos = new List<string>();
             sMinimos = new List<double>();
             GeradorDeTestes gt = new GeradorDeTestes();
             gt.GeraGrauInstrucao();
@@ -24,6 +25,7 @@ namespace TabelaDistribuicaoFrequencia
             grauInstrucao = gt.GetGrauInstrucao();
             sorteioGrauInstrucao = gt.GetSorteioGrauInstrucao();
             nFilhos = gt.GetNumeroFilhos();
+            sorteioNumeroFilhos = gt.getSorteioNumeroFilhos();
             sMinimos = gt.GetSalariosMinimos();
         }
 
@@ -37,9 +39,14 @@ namespace TabelaDistribuicaoFrequencia
             return sorteioGrauInstrucao;
         }
 
-        public List<int> GetNfilhos()
+        public List<string> GetNfilhos()
         {
             return nFilhos;
+        }
+
+        public List<string> GetSorteioNumeroFilhos()
+        {
+            return sorteioNumeroFilhos;
         }
 
         public List<double> GetSMinimos()
@@ -47,12 +54,11 @@ namespace TabelaDistribuicaoFrequencia
             return sMinimos;
         }
 
-        public List<AuxGrauInstrucao> FazTabelaGrauInstrucao()
+        public List<GeradorTabelas> FazTabelaGrauInstrucao()
         {
             int[] freqGrauInstrucao = new int[sorteioGrauInstrucao.Count];
-            Dictionary<string, int> DicEstadoCivil = new Dictionary<string, int>();
             double[] porcGrauInstrucao = new double[5];
-            List<AuxGrauInstrucao> listaGrauInstrucao = new List<AuxGrauInstrucao>();
+            List<GeradorTabelas> listaGrauInstrucao = new List<GeradorTabelas>();
 
             for (int i = 0; i < sorteioGrauInstrucao.Count; i++)
             {
@@ -66,48 +72,39 @@ namespace TabelaDistribuicaoFrequencia
             for (int i = 0; i < 5; i++)
             {
                 porcGrauInstrucao[i] = (Convert.ToDouble(freqGrauInstrucao[i]) / sorteioGrauInstrucao.Count * 100);
-            }
-
-            for (int i = 0; i < 5; i++)
-            {
-                AuxGrauInstrucao agi = new AuxGrauInstrucao(grauInstrucao[i], freqGrauInstrucao[i], porcGrauInstrucao[i]);
-                listaGrauInstrucao.Add(agi);
+                GeradorTabelas gt = new GeradorTabelas(grauInstrucao[i], freqGrauInstrucao[i], porcGrauInstrucao[i]);
+                listaGrauInstrucao.Add(gt);
             }
 
             return listaGrauInstrucao;
         }
 
-        public Dictionary<int, int> FazTabelaNumeroFilhos()
+        public List<GeradorTabelas> FazTabelaNumeroFilhos()
         {
-            int[] freqNumeroFilhos = new int[nFilhos.Count];
-            Dictionary<int, int> DicNumeroFilhos = new Dictionary<int, int>();
-            double[] porcGrauInstrucao = new double[5];
-            List<AuxNumeroFilhos> listaNumeroFilhso = new List<AuxNumeroFilhos>();
+            int[] freqNumeroFilhos = new int[sorteioNumeroFilhos.Count];
+            double[] porcNumeroFilhos = new double[5];
+            List<GeradorTabelas> listaNumeroFilhos = new List<GeradorTabelas>();
 
-            for (int i = 0; i < nFilhos.Count; i++)
+            for (int i = 0; i < sorteioNumeroFilhos.Count; i++)
             {
-                if (nFilhos[i] == 0) { freqNumeroFilhos[0]++; }
-                else if (nFilhos[i] == 1) { freqNumeroFilhos[1]++; }
-                else if (nFilhos[i] == 2) { freqNumeroFilhos[2]++; }
-                else if (nFilhos[i] == 3) { freqNumeroFilhos[3]++; }
-                else if (nFilhos[i] == 4) { freqNumeroFilhos[4]++; }
+                if (sorteioNumeroFilhos[i].Equals("0")) { freqNumeroFilhos[0]++; }
+                else if (sorteioNumeroFilhos[i].Equals("1")) { freqNumeroFilhos[1]++; }
+                else if (sorteioNumeroFilhos[i].Equals("2")) { freqNumeroFilhos[2]++; }
+                else if (sorteioNumeroFilhos[i].Equals("3")) { freqNumeroFilhos[3]++; }
+                else if (sorteioNumeroFilhos[i].Equals("4")) { freqNumeroFilhos[4]++; }
             }
 
             for (int i = 0; i < 5; i++)
             {
-                porcGrauInstrucao[i] = (Convert.ToDouble(freqNumeroFilhos[i]) / sorteioGrauInstrucao.Count * 100);
+                porcNumeroFilhos[i] = (Convert.ToDouble(freqNumeroFilhos[i]) / sorteioNumeroFilhos.Count * 100);
+                GeradorTabelas gt = new GeradorTabelas(nFilhos[i], freqNumeroFilhos[i], porcNumeroFilhos[i]);
+                listaNumeroFilhos.Add(gt);
             }
 
-            DicNumeroFilhos.Add(0, freqNumeroFilhos[0]);
-            DicNumeroFilhos.Add(1, freqNumeroFilhos[1]);
-            DicNumeroFilhos.Add(2, freqNumeroFilhos[2]);
-            DicNumeroFilhos.Add(3, freqNumeroFilhos[3]);
-            DicNumeroFilhos.Add(4, freqNumeroFilhos[4]);
-
-            return DicNumeroFilhos;
+            return listaNumeroFilhos;
         }
 
-        public void FazTabelaSalariosMininos()
+        public List<GeradorTabelas> FazTabelaSalariosMininos()
         {
             double menor = sMinimos.Min();
             double maior = sMinimos.Max();
@@ -117,25 +114,48 @@ namespace TabelaDistribuicaoFrequencia
             int menorInteiro = (int)(menor);
             int maiorInteiro = (int)Math.Ceiling(maior);
             int[] freqSalariosMinimos = new int[classes];
+            double[] porcSalariosMinimos = new double[5];
+            List<GeradorTabelas> listaSalariosMinimos = new List<GeradorTabelas>();
+            string[] amplitudeClasseStr = new string[5];
 
             for (int i = 0; i < sMinimos.Count; i++)
             {
-                if (sMinimos[i] >= menorInteiro + 0 * amplitudeClasse  && sMinimos[i] < menorInteiro + 1 * amplitudeClasse)
+                if (sMinimos[i] >= menorInteiro + 0 * amplitudeClasse && sMinimos[i] < menorInteiro + 1 * amplitudeClasse)
+                {
                     freqSalariosMinimos[0]++;
+                    amplitudeClasseStr[0] = (menorInteiro + 0 * amplitudeClasse).ToString() + " ├ " + (menorInteiro + 1 * amplitudeClasse).ToString();
+                }
                 else if (sMinimos[i] >= menorInteiro + 1 * amplitudeClasse && sMinimos[i] < menorInteiro + 2 *amplitudeClasse)
+                {
                     freqSalariosMinimos[1]++;
+                    amplitudeClasseStr[1] = (menorInteiro + 1 * amplitudeClasse).ToString() + " ├ " + (menorInteiro + 2 * amplitudeClasse).ToString();
+                }                    
                 else if (sMinimos[i] >= menorInteiro + 2 * amplitudeClasse && sMinimos[i] < menorInteiro + 3 * amplitudeClasse)
+                {
                     freqSalariosMinimos[2]++;
+                    amplitudeClasseStr[2] = (menorInteiro + 2 * amplitudeClasse).ToString() + " ├ " + (menorInteiro + 3 * amplitudeClasse).ToString();
+                }
                 else if (sMinimos[i] >= menorInteiro + 3 * amplitudeClasse && sMinimos[i] < menorInteiro + 4 * amplitudeClasse)
+                {
                     freqSalariosMinimos[3]++;
+                    amplitudeClasseStr[3] = (menorInteiro + 3 * amplitudeClasse).ToString() + " ├ " + (menorInteiro + 4 * amplitudeClasse).ToString();
+                }                    
                 else if (sMinimos[i] >= menorInteiro + 4 * amplitudeClasse && sMinimos[i] < menorInteiro + 5 * amplitudeClasse)
+                {
                     freqSalariosMinimos[4]++;
+                    amplitudeClasseStr[4] = (menorInteiro + 4 * amplitudeClasse).ToString() + " ├ " + (menorInteiro + 5 * amplitudeClasse).ToString();
+                }
             }
 
             for (int i = 0; i < classes; i++)
             {
-                Console.WriteLine("{0,3} ├ {1,3} {2}", menorInteiro+i*amplitudeClasse, menorInteiro+(i+1)*amplitudeClasse, freqSalariosMinimos[i]);
+                //Console.WriteLine("{0,3} ├ {1,3} {2}", menorInteiro+i*amplitudeClasse, menorInteiro+(i+1)*amplitudeClasse, freqSalariosMinimos[i]);
+                porcSalariosMinimos[i] = Convert.ToDouble(freqSalariosMinimos[i]) / sMinimos.Count() * 100;
+                GeradorTabelas gt = new GeradorTabelas(amplitudeClasseStr[i], freqSalariosMinimos[i], porcSalariosMinimos[i]);
+                listaSalariosMinimos.Add(gt);
             }
+
+            return listaSalariosMinimos;
         }
     }
 }

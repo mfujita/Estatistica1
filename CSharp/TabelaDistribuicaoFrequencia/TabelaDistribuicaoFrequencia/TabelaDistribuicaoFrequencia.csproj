@@ -43,8 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuxGrauInstrucao.cs" />
-    <Compile Include="AuxNumeroFilhos.cs" />
+    <Compile Include="GeradorTabelas.cs" />
     <Compile Include="CalculosEstatisticos.cs" />
     <Compile Include="GeradorDeTestes.cs" />
     <Compile Include="Program.cs" />
