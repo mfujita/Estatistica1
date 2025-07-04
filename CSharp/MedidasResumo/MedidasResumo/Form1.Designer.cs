@@ -40,6 +40,7 @@
             lblVarianca = new Label();
             lblDesvioPadrao = new Label();
             txtDesvioPadrao = new TextBox();
+            cbRelatorio = new CheckBox();
             SuspendLayout();
             // 
             // txtEntrada
@@ -141,11 +142,22 @@
             txtDesvioPadrao.Size = new Size(210, 29);
             txtDesvioPadrao.TabIndex = 11;
             // 
+            // cbRelatorio
+            // 
+            cbRelatorio.AutoSize = true;
+            cbRelatorio.Location = new Point(788, 427);
+            cbRelatorio.Name = "cbRelatorio";
+            cbRelatorio.Size = new Size(88, 46);
+            cbRelatorio.TabIndex = 12;
+            cbRelatorio.Text = "Imprime\r\nsolução";
+            cbRelatorio.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(888, 485);
+            Controls.Add(cbRelatorio);
             Controls.Add(txtDesvioPadrao);
             Controls.Add(lblDesvioPadrao);
             Controls.Add(lblVarianca);
@@ -181,5 +193,6 @@
         private Label lblVarianca;
         private Label lblDesvioPadrao;
         private TextBox txtDesvioPadrao;
+        private CheckBox cbRelatorio;
     }
 }

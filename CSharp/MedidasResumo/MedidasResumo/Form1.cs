@@ -32,6 +32,9 @@ namespace MedidasResumo
             }
             txtVarianca.Text = op.CalculaVarianca().ToString();
             txtDesvioPadrao.Text = op.CalculaDesvioPadrao().ToString();
+
+            if (cbRelatorio.Checked)
+                op.ImprimeSolucao();
         }
     }
 }
