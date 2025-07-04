@@ -25,7 +25,11 @@ namespace MedidasResumo
             OperacoesEstatisticas op = new OperacoesEstatisticas(dados);
             txtMedia.Text = op.CalculaMedia().ToString();
             txtMediana.Text = op.CalculaMediana().ToString();
-            //op.CalculaModa();
+            List<double> listaModa = op.CalculaModa();
+            for (int i = 0; i < listaModa.Count; i++)
+            {
+                txtModa.Text += listaModa[i] + " ";
+            }
             txtVarianca.Text = op.CalculaVarianca().ToString();
             txtDesvioPadrao.Text = op.CalculaDesvioPadrao().ToString();
         }

@@ -49,15 +49,21 @@ namespace MedidasResumo
             return mediana;
         }
 
-        //public void CalculaModa()
-        //{
-        //    List<double> distintos = dados.Distinct().ToList();
-        //    List<int> frequenciaDistintos = new List<int>();
-        //    for (int i = 0; i < distintos.Count; i++)
-        //    {
-        //        frequenciaDistintos.Add(Convert.ToInt32(dados.Where(x => x.Equals(distintos[i]))));
-        //    }
-        //}
+        public List<double> CalculaModa()
+        {
+            List<double> distintos = dados.Distinct().ToList();
+            List<int> frequenciaDistintos = new List<int>();
+            Dictionary<double, int> valorFrequencia = new Dictionary<double, int>();
+            for (int i = 0; i < distintos.Count; i++)
+            {
+                frequenciaDistintos.Add(dados.Count(x => x.Equals(distintos[i])));
+                valorFrequencia.Add(distintos[i], frequenciaDistintos[i]);
+            }
+            int maiorFrequencia = frequenciaDistintos.Max();
+            int quantidadeMaiorFrequencia = frequenciaDistintos.Count(x => x.Equals(maiorFrequencia));
+            List<double> listaModa = valorFrequencia.Where(x => x.Value.Equals(maiorFrequencia)).Select(m => m.Key).ToList();
+            return listaModa;
+        }
 
         public double CalculaVarianca()
         {
