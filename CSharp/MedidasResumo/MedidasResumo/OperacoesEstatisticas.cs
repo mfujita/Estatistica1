@@ -34,6 +34,7 @@ namespace MedidasResumo
             if (dados.Count % 2 == 1)
             {
                 int posicaoCentral = (indiceNumero.Count + 1) / 2;
+                mediana = indiceNumero[posicaoCentral];
             }
             else
             {
@@ -77,26 +78,6 @@ namespace MedidasResumo
         public double CalculaDesvioPadrao()
         {
             return Math.Sqrt(CalculaVarianca());
-        }
-
-        public void ImprimeSolucao()
-        {
-            FileStream fs = new FileStream("solucao.html", FileMode.Create);
-            StreamWriter sw = new StreamWriter(fs);
-            sw.WriteLine("<html lang=\"pt-br\">");
-            sw.WriteLine("<head>");
-            sw.WriteLine("    <meta charset=\"UTF-8\">");
-            sw.WriteLine("    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
-            sw.WriteLine("    <title>Medidas resumo</title>");
-            sw.WriteLine("    <style>");
-            sw.WriteLine("    </style>");
-            sw.WriteLine("</head>");
-            sw.WriteLine("<body>");
-            sw.WriteLine("Ok");
-            sw.WriteLine("</body>");
-            sw.WriteLine("</html>");
-            sw.Close();
-            fs.Close();
         }
     }
 }
